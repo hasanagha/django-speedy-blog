@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load markdown_deux_tags %}
+
+{% block content %}
+
+	<article itemscope itemtype="http://schema.org/Article">
+		<header itemprop="name">
+			<a href="{{ post.get_absolute_url }}">
+				<h1>{{ post.title }}</h1>
+			</a>
+		</header>
+		
+		<p class="publish-data">
+			Posted on 
+			<time itemprop="datePublished" datetime="{{ post.created_on|date:'Y-m-d H:i:s' }}">
+				{{ post.created_on }}
+			</time>
+			by 
+			<span itemprop="author">{{ post.posted_by }}</span> - 
+			<a itemprop="discussionUrl" href="{{ post.get_absolute_url }}#comments">
+				<span itemprop="comment">
+					{{ post.get_comments_count }} comment{{ post.get_comments_count|pluralize }}
+				</span>
+			</a>
+		</p>
+
+		<span itemprop="articleBody">{{ post.description|markdown }}</span>
+
+		<hr />
+	</article>
+
+
+<a name="comments"><h2>Comment</h2></a>
+{% if post.allow_comments %}
+	{% include 'speedyblog/includes/post_form.html' %}
+	<hr />
+	<h2>Comments</h2>
+
+	{% include page_template %}
+
+{% else %}
+	<p>Comments are disabled for this post.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+"""
+Django Speedy Blog settings file.
+"""
+
+from django.conf import settings
+
+SPEEDY_POST_MAX_LENGTH = getattr(settings, 'SPEEDY_POST_MAX_LENGTH', 500)
+
+COMMENT_STATUS_PENDING = 'P'
+COMMENT_STATUS_APPROVED = 'A'
+COMMENT_STATUS_DELETED = 'D'
+
+POST_STATUS_PUBLISHED = 'P'
+POST_STATUS_UNPUBLISHED = 'U'
+POST_STATUS_DRAFT = 'D'
